@@ -11,8 +11,7 @@ public class DemoRpcClientHandler extends SimpleChannelInboundHandler<Message<Re
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Message<Response> message) throws Exception {
-        NettyResponseFuture responseFuture =
-                Connection.IN_FLIGHT_REQUEST_MAP.remove(message.getHeader().getMessageId());
+        NettyResponseFuture responseFuture = Connection.IN_FLIGHT_REQUEST_MAP.remove(message.getHeader().getMessageId());
         Response response = message.getContent();
         // 心跳消息特殊处理
         if (response == null && Constants.isHeartBeat(message.getHeader().getExtraInfo())) {

@@ -5,6 +5,9 @@ import com.demo.rpc.protocol.Message;
 import io.netty.channel.Channel;
 import io.netty.util.concurrent.Promise;
 
+/**
+ * @author tkz
+ */
 public class NettyResponseFuture<T> {
     private long createTime;
     private long timeOut;

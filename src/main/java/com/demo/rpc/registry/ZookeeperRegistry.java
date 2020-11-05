@@ -25,9 +25,8 @@ public class ZookeeperRegistry<T> implements Registry<T> {
 
     private ServiceCache<T> serviceCache;
 
-    private String address = "localhost:2181";
-
     public void start() throws Exception {
+        String address = "localhost:2181";
         String root = "/demo/rpc";
         // 初始化CuratorFramework
         CuratorFramework client = CuratorFrameworkFactory.newClient(address, new ExponentialBackoffRetry(1000, 3));

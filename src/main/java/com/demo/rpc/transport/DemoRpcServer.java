@@ -15,6 +15,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+/**
+ * @author tkz
+ */
 public class DemoRpcServer {
 
     private EventLoopGroup bossGroup;
@@ -27,11 +30,8 @@ public class DemoRpcServer {
         this.port = port;
         // 创建boss和worker两个EventLoopGroup，注意一些小细节，
         // workerGroup 是按照中的线程数是按照 CPU 核数计算得到的
-        bossGroup = NettyEventLoopFactory.eventLoopGroup(1,
-                "NettyServerBoss");
-        workerGroup = NettyEventLoopFactory.eventLoopGroup(
-                Math.min(Runtime.getRuntime().availableProcessors() + 1, 32),
-                "NettyServerWorker");
+        bossGroup = NettyEventLoopFactory.eventLoopGroup(1, "NettyServerBoss");
+        workerGroup = NettyEventLoopFactory.eventLoopGroup(Math.min(Runtime.getRuntime().availableProcessors() + 1, 32), "NettyServerWorker");
         serverBootstrap = new ServerBootstrap().group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_REUSEADDR, Boolean.TRUE)
@@ -69,10 +69,12 @@ public class DemoRpcServer {
 
     public void shutdown() throws InterruptedException {
         channel.close().sync();
-        if (bossGroup != null)
+        if (bossGroup != null) {
             bossGroup.shutdownGracefully().awaitUninterruptibly(15000);
-        if (workerGroup != null)
+        }
+        if (workerGroup != null) {
             workerGroup.shutdownGracefully().awaitUninterruptibly(15000);
+        }
     }
 
 }

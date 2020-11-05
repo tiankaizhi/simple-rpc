@@ -18,7 +18,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @author tkz
  */
 public class DemoRpcEncoder extends MessageToByteEncoder<Message> {
-
     @Override
     protected void encode(ChannelHandlerContext ctx, Message message, ByteBuf byteBuf) throws Exception {
         Header header = message.getHeader();
